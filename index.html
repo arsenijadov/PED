@@ -41,11 +41,7 @@
 
   .wrap { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
 
-  /* ===== ШАПКА ===== */
-  header {
-    text-align: center;
-    padding: 40px 20px 30px;
-  }
+  header { text-align: center; padding: 40px 20px 30px; }
   .logo {
     width: 76px; height: 76px; margin: 0 auto 18px;
     border-radius: 20px;
@@ -54,10 +50,7 @@
     box-shadow: 0 12px 32px rgba(74,222,128,.35);
     animation: pulse 3s ease-in-out infinite;
   }
-  @keyframes pulse {
-    0%,100% { transform: scale(1); }
-    50%     { transform: scale(1.05); }
-  }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
   h1 {
     font-size: 34px; letter-spacing: -.5px; margin-bottom: 12px;
     background: linear-gradient(90deg, #fff, #9ff0c1 60%, #7fe3f0);
@@ -76,7 +69,6 @@
   .btn-tg:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(34,211,238,.45); filter: brightness(1.06); }
   .btn-tg svg { width: 20px; height: 20px; }
 
-  /* ===== СПИСОК УРОКОВ ===== */
   .lessons-title {
     font-size: 13px; text-transform: uppercase; letter-spacing: 1.8px;
     color: var(--muted); text-align: center; margin: 44px 0 20px; font-weight: 600;
@@ -128,33 +120,6 @@
     font-family: Consolas, monospace; color: var(--accent);
   }
 
-  /* ===== ПЛЕЙСХОЛДЕР ===== */
-  .placeholder {
-    text-align: center; padding: 50px 24px;
-    border: 2px dashed rgba(120,160,255,.25);
-    border-radius: 16px;
-    color: var(--muted); font-size: 14.5px; line-height: 1.7;
-  }
-  .placeholder .icon { font-size: 40px; display: block; margin-bottom: 14px; opacity: .7; }
-  .placeholder code {
-    background: rgba(255,255,255,.07); padding: 2px 8px; border-radius: 5px;
-    font-family: Consolas, monospace; color: var(--accent);
-  }
-
-  /* ===== ПОДВАЛ ===== */
-  footer {
-    text-align: center; margin-top: 50px; padding: 26px 0;
-    color: #5c6b8f; font-size: 13px;
-    border-top: 1px solid rgba(120,160,255,.1);
-  }
-
-  @media (max-width: 480px) {
-    h1 { font-size: 26px; }
-    header { padding: 30px 12px 20px; }
-    .lesson { padding: 16px 16px; }
-  }
-  
-  /* ===== БЛОК ПОДСКАЗКИ ===== */
   .hint-box {
     margin-top: 12px;
     border-radius: 10px;
@@ -201,6 +166,26 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  .loading {
+    text-align: center; padding: 40px; color: var(--muted); font-size: 14px;
+  }
+  .error-box {
+    text-align: center; padding: 30px; color: #fca5a5; font-size: 14px;
+    background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.25);
+    border-radius: 12px;
+  }
+
+  footer {
+    text-align: center; margin-top: 50px; padding: 26px 0;
+    color: #5c6b8f; font-size: 13px;
+    border-top: 1px solid rgba(120,160,255,.1);
+  }
+
+  @media (max-width: 480px) {
+    h1 { font-size: 26px; }
+    header { padding: 30px 12px 20px; }
+    .lesson { padding: 16px 16px; }
+  }
 </style>
 </head>
 <body>
@@ -211,7 +196,6 @@
 
 <div class="wrap">
 
-  <!-- ============ ШАПКА ============ -->
   <header>
     <div class="logo">🐍</div>
     <h1>Python Every Day</h1>
@@ -224,97 +208,69 @@
     </a>
   </header>
 
-  <!-- ============ УРОКИ ============ -->
   <p class="lessons-title">📚 Уроки</p>
 
   <div class="lessons" id="lessons-container">
-
-    <!-- ================= УРОК 1 ================= -->
-    <div class="lesson">
-      <div class="lesson-head">
-        <div class="lesson-num">1</div>
-        <h3>Как писать на Python</h3>
-      </div>
-      <div class="lesson-body">
-        Python — язык, который читается почти как обычный текст.
-        Главная команда для начала — <code>print()</code>.
-        Она выводит на экран то, что вы напишете в скобках.
-
-        Например, эта строка выведет приветствие:
-        <code>print("Привет, мир!")</code>
-
-        Важно: текст (строку) нужно брать в кавычки — двойные или одинарные.
-        А числа пишутся без кавычек: <code>print(42)</code>.
-
-        Каждая команда — с новой строки. Python выполняет их сверху вниз.
-      </div>
-      <div class="lesson-task">
-        <span class="task-label">Задание</span>
-        Выведите на экран фразу <code>Hello Python</code>.
-      </div>
-      <details class="hint-box">
-        <summary>💡 Получить помощь</summary>
-        <div class="hint-content">
-          Нужно вызвать <code>print()</code> и передать внутрь строку
-          <code>"Hello Python"</code> в кавычках. Например:
-          <code>print("Hello Python")</code>.
-          После решения отправьте боту: <code>задание 1 print("Hello Python")</code>
-        </div>
-      </details>
-    </div>
-
-    <!-- ================= УРОК 2 ================= -->
-    <div class="lesson">
-      <div class="lesson-head">
-        <div class="lesson-num">2</div>
-        <h3>Переменные и арифметика</h3>
-      </div>
-      <div class="lesson-body">
-        Переменная — это «коробка» с именем, в которую можно положить значение.
-        Создаётся она так: <code>x = 10</code>.
-        Теперь в <code>x</code> лежит число 10, и его можно использовать.
-
-        С числами в Python можно делать всё как в математике:
-        <code>+</code> сложение, <code>-</code> вычитание,
-        <code>*</code> умножение, <code>/</code> деление.
-
-        Например:
-        <code>a = 5</code>
-        <code>b = 3</code>
-        <code>print(a + b)</code>
-        выведет <code>8</code>.
-
-        Переменные можно переиспользовать и менять:
-        <code>a = a + 1</code> — теперь в <code>a</code> лежит 6.
-      </div>
-      <div class="lesson-task">
-        <span class="task-label">Задание</span>
-        Создайте переменные <code>a = 7</code> и <code>b = 4</code>,
-        затем выведите на экран их сумму, разность, произведение и частное
-        (каждое — с новой строки).
-      </div>
-      <details class="hint-box">
-        <summary>💡 Получить помощь</summary>
-        <div class="hint-content">
-          Сначала присвойте значения: <code>a = 7</code> и <code>b = 4</code>
-          на отдельных строках. Затем для каждой операции вызовите <code>print()</code>:
-          <code>print(a + b)</code>, <code>print(a - b)</code>,
-          <code>print(a * b)</code>, <code>print(a / b)</code>.
-          Каждый <code>print</code> — с новой строки.
-          <br><br>
-          Отправьте боту: <code>задание 2</code>, а на следующей строке — ваш код
-          (можно многострочно, бот поймёт).
-        </div>
-      </details>
-    </div>
+    <div class="loading">Загружаю уроки...</div>
   </div>
 
-  <!-- ============ ПОДВАЛ ============ -->
   <footer>
     Python Every Day · сделано с ❤️ для тех, кто учится программировать
   </footer>
 
 </div>
+
+<script>
+  function esc(s) {
+    return String(s)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+  }
+
+  function formatText(text) {
+    return esc(text).replace(/`([^`]+)`/g, '<code>$1</code>');
+  }
+
+  function renderLesson(lesson) {
+    return `
+      <div class="lesson">
+        <div class="lesson-head">
+          <div class="lesson-num">${lesson.id}</div>
+          <h3>${esc(lesson.title)}</h3>
+        </div>
+        <div class="lesson-body">${formatText(lesson.body || '')}</div>
+        <div class="lesson-task">
+          <span class="task-label">Задание</span>
+          ${formatText(lesson.task || '')}
+        </div>
+        <details class="hint-box">
+          <summary>💡 Получить помощь</summary>
+          <div class="hint-content">${formatText(lesson.hint || '')}</div>
+        </details>
+      </div>
+    `;
+  }
+
+  fetch('lessons.json')
+    .then(r => {
+      if (!r.ok) throw new Error('Не удалось загрузить lessons.json (код ' + r.status + ')');
+      return r.json();
+    })
+    .then(lessons => {
+      const container = document.getElementById('lessons-container');
+      if (!lessons.length) {
+        container.innerHTML = '<div class="loading">Уроков пока нет.</div>';
+        return;
+      }
+      container.innerHTML = lessons.map(renderLesson).join('');
+    })
+    .catch(err => {
+      const container = document.getElementById('lessons-container');
+      container.innerHTML = '<div class="error-box">⚠️ ' + esc(err.message) +
+        '<br><br>Проверьте, что файл <code>lessons.json</code> лежит рядом с <code>index.html</code>.</div>';
+    });
+</script>
 
 </body>
 </html>
