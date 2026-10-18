@@ -49,7 +49,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(
         "👋 Привет! Я бот для изучения Python.\n\n"
-        "🔔 Я буду напоминать тебе утром (08:00) и вечером (20:00).\n"
+        "🔔 Я буду напоминать тебе утром (11:00) и вечером (23:00).\n"
         "📝 Отправь мне ответ на задание в формате:\n"
         "   задание 1 print('Hello')\n"
         "и я проверю его через AI."
