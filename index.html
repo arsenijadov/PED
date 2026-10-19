@@ -25,7 +25,6 @@
     color: var(--text);
     min-height: 100vh;
     padding: 24px;
-    scroll-behavior: smooth;
   }
 
   .blob {
@@ -42,12 +41,21 @@
 
   .wrap { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
 
-  /* ===== БЛОК ЦИТАТ ===== */
+  /* ===== ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ ===== */
+  .screen { display: none; animation: fadeInScreen 0.4s ease forwards; }
+  .screen.active { display: block; }
+  @keyframes fadeInScreen {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== ЦИТАТЫ ===== */
   .quote-container {
     text-align: center;
     padding: 30px 20px 10px;
-    height: 110px; /* Фиксированная высота, чтобы сайт не прыгал */
+    height: 100px;
     position: relative;
+    margin-bottom: 20px;
   }
   .quote {
     position: absolute;
@@ -59,9 +67,7 @@
     color: #c4b5fd;
     line-height: 1.6;
   }
-  .quote.active {
-    opacity: 1;
-  }
+  .quote.active { opacity: 1; }
   .quote-author {
     display: block;
     margin-top: 8px;
@@ -71,7 +77,7 @@
     letter-spacing: 0.5px;
   }
 
-  /* ===== ШАПКА ===== */
+  /* ===== ГЛАВНАЯ ШАПКА ===== */
   header { text-align: center; padding: 10px 20px 30px; }
   .logo {
     width: 76px; height: 76px; margin: 0 auto 18px;
@@ -89,7 +95,7 @@
   }
   .subtitle { color: var(--muted); font-size: 16px; line-height: 1.6; max-width: 560px; margin: 0 auto 26px; }
 
-  /* ===== МЕНЮ (3 КНОПКИ) ===== */
+  /* ===== МЕНЮ ===== */
   .nav-buttons {
     display: flex;
     justify-content: center;
@@ -99,14 +105,14 @@
   }
   .nav-btn {
     text-decoration: none;
-    padding: 10px 24px;
+    padding: 12px 28px;
     border-radius: 12px;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 600;
     transition: all .2s ease;
     border: 1px solid transparent;
+    cursor: pointer;
   }
-  /* Кнопка Донат */
   .nav-btn.donate-btn {
     background: rgba(239,68,68,.1);
     color: #fca5a5;
@@ -114,7 +120,6 @@
   }
   .nav-btn.donate-btn:hover { background: rgba(239,68,68,.2); }
   
-  /* Кнопка Уроки (Выделяющаяся) */
   .nav-btn.lessons-btn {
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     color: #06210f;
@@ -126,7 +131,6 @@
     box-shadow: 0 6px 20px rgba(34,211,238,.4);
   }
   
-  /* Кнопка О нас */
   .nav-btn.about-btn {
     background: rgba(167,139,250,.1);
     color: #c4b5fd;
@@ -134,21 +138,18 @@
   }
   .nav-btn.about-btn:hover { background: rgba(167,139,250,.2); }
 
-  /* ===== БЛОК О НАС ===== */
+  /* ===== ОПИСАНИЕ (О НАС) ===== */
   .about-section {
     background: rgba(18,26,51,.6);
     border: 1px solid var(--border);
     border-radius: 16px;
     padding: 24px;
-    margin-bottom: 40px;
     text-align: center;
     line-height: 1.7;
     font-size: 15px;
+    margin-bottom: 30px;
   }
-  .about-section b {
-    color: var(--accent);
-    font-weight: 600;
-  }
+  .about-section b { color: var(--accent); font-weight: 600; }
   .about-section .highlight {
     background: rgba(74,222,128,.1);
     padding: 2px 8px;
@@ -164,16 +165,36 @@
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     box-shadow: 0 12px 30px rgba(74,222,128,.35);
     transition: transform .18s, box-shadow .18s, filter .18s;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 400px;
   }
   .btn-tg:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(34,211,238,.45); filter: brightness(1.06); }
   .btn-tg svg { width: 20px; height: 20px; }
 
-  /* ===== УРОКИ ===== */
-  .lessons-title {
-    font-size: 13px; text-transform: uppercase; letter-spacing: 1.8px;
-    color: var(--muted); text-align: center; margin: 44px 0 20px; font-weight: 600;
+  /* ===== ЭКРАН УРОКОВ ===== */
+  .page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border);
   }
+  .back-btn {
+    background: rgba(255,255,255,.05);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 16px;
+    border-radius: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: .2s;
+  }
+  .back-btn:hover { background: rgba(255,255,255,.1); }
+  .page-title { font-size: 20px; font-weight: 700; }
+
   .lessons { display: grid; gap: 14px; }
   .lesson {
     background: linear-gradient(160deg, rgba(18,26,51,.9), rgba(10,15,32,.9));
@@ -263,52 +284,73 @@
 
 <div class="wrap">
 
-  <!-- ===== ЦИТАТЫ ===== -->
-  <div class="quote-container">
-    <div class="quote active">
-      «Науки юношей питают, отраду старым подают…»
-      <span class="quote-author">— Михаил Ломоносов</span>
-    </div>
-    <div class="quote">
-      «Пусть будущее скажет правду и оценит каждого по его трудам и достижениям».
-      <span class="quote-author">— Никола Тесла</span>
-    </div>
-    <div class="quote">
-      «Самый большой риск — не идти на риск».
-      <span class="quote-author">— Марк Цукерберг</span>
-    </div>
-  </div>
-
-  <header>
-    <div class="logo">🐍</div>
-    <h1>Python Every Day</h1>
-    <p class="subtitle">Учи Python по 5 минут в день. Уроки на сайте, проверка заданий — в Telegram-боте.</p>
+  <!-- ========================================== -->
+  <!-- ЭКРАН 1: ГЛАВНАЯ                          -->
+  <!-- ========================================== -->
+  <div id="screen-home" class="screen active">
     
-    <!-- ===== МЕНЮ ===== -->
-    <div class="nav-buttons">
-      <a href="#" class="nav-btn donate-btn">❤️ Донат</a>
-      <a href="#lessons" class="nav-btn lessons-btn">📚 Уроки</a>
-      <a href="#about" class="nav-btn about-btn">ℹ️ О нас</a>
+    <!-- Цитаты -->
+    <div class="quote-container">
+      <div class="quote active">
+        «Науки юношей питают, отраду старым подают…»
+        <span class="quote-author">— Михаил Ломоносов</span>
+      </div>
+      <div class="quote">
+        «Пусть будущее скажет правду и оценит каждого по его трудам и достижениям».
+        <span class="quote-author">— Никола Тесла</span>
+      </div>
+      <div class="quote">
+        «Самый большой риск — не идти на риск».
+        <span class="quote-author">— Марк Цукерберг</span>
+      </div>
     </div>
 
-    <a class="btn-tg" href="https://t.me/P_E_D_bot" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.47l-.38 5.36c.54 0 .78-.23 1.06-.5l2.55-2.44 5.29 3.87c.97.53 1.66.25 1.9-.9l3.44-16.1c.3-1.41-.5-1.96-1.44-1.61L.9 9.8c-1.37.53-1.35 1.29-.23 1.63l4.66 1.46L16.15 5.6c.5-.33.96-.15.58.18l-8.7 7.85z"/></svg>
-      Открыть бота в Telegram
-    </a>
-  </header>
+    <!-- Название -->
+    <header>
+      <div class="logo">🐍</div>
+      <h1>Python Every Day</h1>
+      <p class="subtitle">Учи Python по 5 минут в день.</p>
+      
+      <!-- Меню -->
+      <div class="nav-buttons">
+        <a href="#" class="nav-btn donate-btn">❤️ Донат</a>
+        <a href="#" class="nav-btn lessons-btn" onclick="switchScreen('lessons')">📚 Уроки</a>
+        <a href="#about-block" class="nav-btn about-btn">ℹ️ О нас</a>
+      </div>
+    </header>
 
-  <!-- ===== БЛОК О НАС ===== -->
-  <div id="about" class="about-section">
-    Этот проект создан для поддержки фонда <b>«А»</b> (название скоро появится). 
-    Его суть — в простой и понятной форме научить детей и взрослых, далёких от программирования, 
-    базе IT с помощью лёгкого языка <span class="highlight">Python</span>.
+    <!-- Описание -->
+    <div id="about-block" class="about-section">
+      Этот проект создан для поддержки фонда <b>«А»</b> (название скоро появится). 
+      Его суть — в простой и понятной форме научить детей и взрослых, далёких от программирования, 
+      базе IT с помощью лёгкого языка <span class="highlight">Python</span>.
+    </div>
+
+    <!-- Кнопка тг -->
+    <div style="text-align: center;">
+      <a class="btn-tg" href="https://t.me/P_E_D_bot" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.47l-.38 5.36c.54 0 .78-.23 1.06-.5l2.55-2.44 5.29 3.87c.97.53 1.66.25 1.9-.9l3.44-16.1c.3-1.41-.5-1.96-1.44-1.61L.9 9.8c-1.37.53-1.35 1.29-.23 1.63l4.66 1.46L16.15 5.6c.5-.33.96-.15.58.18l-8.7 7.85z"/></svg>
+        Открыть бота в Telegram
+      </a>
+    </div>
+
   </div>
 
-  <!-- ===== УРОКИ ===== -->
-  <p class="lessons-title" id="lessons">📚 Уроки</p>
+  <!-- ========================================== -->
+  <!-- ЭКРАН 2: УРОКИ                            -->
+  <!-- ========================================== -->
+  <div id="screen-lessons" class="screen">
+    
+    <div class="page-header">
+      <a href="#" class="back-btn" onclick="switchScreen('home')">← На главную</a>
+      <div class="page-title">📚 Уроки</div>
+      <div style="width: 100px;"></div> <!-- Для баланса -->
+    </div>
 
-  <div class="lessons" id="lessons-container">
-    <div class="loading">Загружаю уроки...</div>
+    <div class="lessons" id="lessons-container">
+      <div class="loading">Загружаю уроки...</div>
+    </div>
+
   </div>
 
   <footer>
@@ -318,21 +360,25 @@
 </div>
 
 <script>
-  // ===== СКРИПТ ЦИТАТ =====
+  // ===== ПЕРЕКЛЮЧЕНИЕ ЭКРАНОВ =====
+  function switchScreen(screenName) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById('screen-' + screenName).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' }); // Скролл наверх
+  }
+
+  // ===== СМЕНА ЦИТАТ =====
   const quotes = document.querySelectorAll('.quote');
   let currentQuote = 0;
   setInterval(() => {
     quotes[currentQuote].classList.remove('active');
     currentQuote = (currentQuote + 1) % quotes.length;
     quotes[currentQuote].classList.add('active');
-  }, 5000); // Смена каждые 5 секунд
+  }, 5000);
 
-  // ===== СКРИПТ УРОКОВ =====
+  // ===== ЗАГРУЗКА УРОКОВ =====
   function esc(s) {
-    return String(s)
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   function formatText(text) {
@@ -359,9 +405,10 @@
     `;
   }
 
+  // Загружаем уроки один раз при старте (они скрыты, пока не нажмем кнопку)
   fetch('lessons.json')
     .then(r => {
-      if (!r.ok) throw new Error('Не удалось загрузить lessons.json (код ' + r.status + ')');
+      if (!r.ok) throw new Error('Не удалось загрузить lessons.json');
       return r.json();
     })
     .then(lessons => {
@@ -375,7 +422,7 @@
     .catch(err => {
       const container = document.getElementById('lessons-container');
       container.innerHTML = '<div class="error-box">⚠️ ' + esc(err.message) +
-        '<br><br>Проверьте, что файл <code>lessons.json</code> лежит рядом с <code>index.html</code>.</div>';
+        '<br><br>Проверьте файл <code>lessons.json</code>.</div>';
     });
 </script>
 
