@@ -33,18 +33,18 @@ with open(os.path.join(BASE_DIR, "lessons.json"), "r", encoding="utf-8") as f:
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     chat_id = update.effective_chat.id
 
+     # Убираем старые задачи, если пользователь запускает /start повторно
     for job in context.job_queue.get_jobs_by_name(f"morning_{chat_id}"):
         job.schedule_removal()
     for job in context.job_queue.get_jobs_by_name(f"evening_{chat_id}"):
         job.schedule_removal()
 
+    # Утреннее напоминание в 11:00 МСК (08:00 UTC)
     context.job_queue.run_daily(
-        morning_reminder, time=datetime.time(8, 0),
-        chat_id=chat_id, name=f"morning_{chat_id}",
-    )
-    context.job_queue.run_daily(
-        evening_reminder, time=datetime.time(20, 0),
-        chat_id=chat_id, name=f"evening_{chat_id}",
+        morning_reminder,
+        time=datetime.time(8, 0),
+        chat_id=chat_id,
+        name=f"morning_{chat_id}",
     )
 
     await update.message.reply_text(
