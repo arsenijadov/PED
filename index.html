@@ -25,6 +25,7 @@
     color: var(--text);
     min-height: 100vh;
     padding: 24px;
+    scroll-behavior: smooth;
   }
 
   .blob {
@@ -41,7 +42,37 @@
 
   .wrap { position: relative; z-index: 1; max-width: 880px; margin: 0 auto; }
 
-  header { text-align: center; padding: 40px 20px 30px; }
+  /* ===== БЛОК ЦИТАТ ===== */
+  .quote-container {
+    text-align: center;
+    padding: 30px 20px 10px;
+    height: 110px; /* Фиксированная высота, чтобы сайт не прыгал */
+    position: relative;
+  }
+  .quote {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    font-size: 16px;
+    font-style: italic;
+    color: #c4b5fd;
+    line-height: 1.6;
+  }
+  .quote.active {
+    opacity: 1;
+  }
+  .quote-author {
+    display: block;
+    margin-top: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    font-style: normal;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===== ШАПКА ===== */
+  header { text-align: center; padding: 10px 20px 30px; }
   .logo {
     width: 76px; height: 76px; margin: 0 auto 18px;
     border-radius: 20px;
@@ -58,6 +89,74 @@
   }
   .subtitle { color: var(--muted); font-size: 16px; line-height: 1.6; max-width: 560px; margin: 0 auto 26px; }
 
+  /* ===== МЕНЮ (3 КНОПКИ) ===== */
+  .nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all .2s ease;
+    border: 1px solid transparent;
+  }
+  /* Кнопка Донат */
+  .nav-btn.donate-btn {
+    background: rgba(239,68,68,.1);
+    color: #fca5a5;
+    border-color: rgba(239,68,68,.3);
+  }
+  .nav-btn.donate-btn:hover { background: rgba(239,68,68,.2); }
+  
+  /* Кнопка Уроки (Выделяющаяся) */
+  .nav-btn.lessons-btn {
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    color: #06210f;
+    box-shadow: 0 4px 15px rgba(74,222,128,.3);
+    transform: scale(1.05);
+  }
+  .nav-btn.lessons-btn:hover {
+    transform: scale(1.08);
+    box-shadow: 0 6px 20px rgba(34,211,238,.4);
+  }
+  
+  /* Кнопка О нас */
+  .nav-btn.about-btn {
+    background: rgba(167,139,250,.1);
+    color: #c4b5fd;
+    border-color: rgba(167,139,250,.3);
+  }
+  .nav-btn.about-btn:hover { background: rgba(167,139,250,.2); }
+
+  /* ===== БЛОК О НАС ===== */
+  .about-section {
+    background: rgba(18,26,51,.6);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+  .about-section b {
+    color: var(--accent);
+    font-weight: 600;
+  }
+  .about-section .highlight {
+    background: rgba(74,222,128,.1);
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid rgba(74,222,128,.2);
+  }
+
+  /* ===== КНОПКА В ТГ ===== */
   .btn-tg {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
     padding: 15px 30px; font-size: 16px; font-weight: 700; color: #06210f;
@@ -65,22 +164,21 @@
     background: linear-gradient(135deg, var(--accent), var(--accent2));
     box-shadow: 0 12px 30px rgba(74,222,128,.35);
     transition: transform .18s, box-shadow .18s, filter .18s;
+    margin-bottom: 30px;
   }
   .btn-tg:hover { transform: translateY(-3px); box-shadow: 0 18px 40px rgba(34,211,238,.45); filter: brightness(1.06); }
   .btn-tg svg { width: 20px; height: 20px; }
 
+  /* ===== УРОКИ ===== */
   .lessons-title {
     font-size: 13px; text-transform: uppercase; letter-spacing: 1.8px;
     color: var(--muted); text-align: center; margin: 44px 0 20px; font-weight: 600;
   }
-
   .lessons { display: grid; gap: 14px; }
-
   .lesson {
     background: linear-gradient(160deg, rgba(18,26,51,.9), rgba(10,15,32,.9));
     border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 20px 22px;
+    border-radius: 16px; padding: 20px 22px;
     transition: border-color .2s, transform .2s, box-shadow .2s;
   }
   .lesson:hover {
@@ -88,7 +186,6 @@
     transform: translateY(-2px);
     box-shadow: 0 10px 28px rgba(0,0,0,.4);
   }
-
   .lesson-head { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
   .lesson-num {
     flex-shrink: 0; width: 36px; height: 36px; border-radius: 10px;
@@ -97,19 +194,15 @@
     border: 1px solid rgba(74,222,128,.3);
   }
   .lesson h3 { font-size: 17px; font-weight: 600; }
-
   .lesson-body { color: var(--muted); font-size: 14.5px; line-height: 1.65; white-space: pre-wrap; }
   .lesson-body code {
     background: rgba(255,255,255,.07); padding: 2px 7px; border-radius: 5px;
     font-family: Consolas, monospace; color: var(--accent2); font-size: 13.5px;
   }
-
   .lesson-task {
     margin-top: 14px; padding: 14px 16px;
-    background: rgba(34,211,238,.06);
-    border-left: 3px solid var(--accent2);
-    border-radius: 8px;
-    font-size: 14px; line-height: 1.6;
+    background: rgba(34,211,238,.06); border-left: 3px solid var(--accent2);
+    border-radius: 8px; font-size: 14px; line-height: 1.6;
   }
   .lesson-task .task-label {
     display: block; font-size: 11.5px; text-transform: uppercase;
@@ -119,72 +212,46 @@
     background: rgba(255,255,255,.08); padding: 2px 7px; border-radius: 5px;
     font-family: Consolas, monospace; color: var(--accent);
   }
-
   .hint-box {
-    margin-top: 12px;
-    border-radius: 10px;
-    background: rgba(167,139,250,.07);
-    border: 1px solid rgba(167,139,250,.25);
+    margin-top: 12px; border-radius: 10px;
+    background: rgba(167,139,250,.07); border: 1px solid rgba(167,139,250,.25);
     overflow: hidden;
   }
   .hint-box summary {
-    cursor: pointer;
-    padding: 12px 16px;
-    font-size: 14px;
-    font-weight: 600;
-    color: #c4b5fd;
-    list-style: none;
-    user-select: none;
-    transition: background .2s;
+    cursor: pointer; padding: 12px 16px; font-size: 14px; font-weight: 600;
+    color: #c4b5fd; list-style: none; user-select: none; transition: background .2s;
   }
   .hint-box summary::-webkit-details-marker { display: none; }
-  .hint-box summary::before {
-    content: "▸";
-    display: inline-block;
-    margin-right: 8px;
-    transition: transform .2s;
-  }
+  .hint-box summary::before { content: "▸"; display: inline-block; margin-right: 8px; transition: transform .2s; }
   .hint-box[open] summary::before { transform: rotate(90deg); }
   .hint-box summary:hover { background: rgba(167,139,250,.12); }
   .hint-content {
-    padding: 4px 16px 16px;
-    font-size: 14px;
-    line-height: 1.7;
-    color: var(--muted);
+    padding: 4px 16px 16px; font-size: 14px; line-height: 1.7; color: var(--muted);
     animation: fadeIn .25s ease;
   }
   .hint-content code {
-    background: rgba(255,255,255,.08);
-    padding: 2px 7px;
-    border-radius: 5px;
-    font-family: Consolas, monospace;
-    color: #c4b5fd;
-    font-size: 13px;
+    background: rgba(255,255,255,.08); padding: 2px 7px; border-radius: 5px;
+    font-family: Consolas, monospace; color: #c4b5fd; font-size: 13px;
   }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
 
-  .loading {
-    text-align: center; padding: 40px; color: var(--muted); font-size: 14px;
-  }
+  .loading { text-align: center; padding: 40px; color: var(--muted); font-size: 14px; }
   .error-box {
     text-align: center; padding: 30px; color: #fca5a5; font-size: 14px;
-    background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.25);
-    border-radius: 12px;
+    background: rgba(239,68,68,.08); border: 1px solid rgba(239,68,68,.25); border-radius: 12px;
   }
 
   footer {
     text-align: center; margin-top: 50px; padding: 26px 0;
-    color: #5c6b8f; font-size: 13px;
-    border-top: 1px solid rgba(120,160,255,.1);
+    color: #5c6b8f; font-size: 13px; border-top: 1px solid rgba(120,160,255,.1);
   }
 
   @media (max-width: 480px) {
     h1 { font-size: 26px; }
-    header { padding: 30px 12px 20px; }
+    header { padding: 10px 12px 20px; }
     .lesson { padding: 16px 16px; }
+    .nav-btn { padding: 8px 16px; font-size: 13px; }
+    .quote { font-size: 14px; }
   }
 </style>
 </head>
@@ -196,19 +263,49 @@
 
 <div class="wrap">
 
+  <!-- ===== ЦИТАТЫ ===== -->
+  <div class="quote-container">
+    <div class="quote active">
+      «Науки юношей питают, отраду старым подают…»
+      <span class="quote-author">— Михаил Ломоносов</span>
+    </div>
+    <div class="quote">
+      «Пусть будущее скажет правду и оценит каждого по его трудам и достижениям».
+      <span class="quote-author">— Никола Тесла</span>
+    </div>
+    <div class="quote">
+      «Самый большой риск — не идти на риск».
+      <span class="quote-author">— Марк Цукерберг</span>
+    </div>
+  </div>
+
   <header>
     <div class="logo">🐍</div>
     <h1>Python Every Day</h1>
-    <p class="subtitle">
-      Учи Python по 5 минут в день. Уроки на сайте, проверка заданий — в Telegram-боте.
-    </p>
+    <p class="subtitle">Учи Python по 5 минут в день. Уроки на сайте, проверка заданий — в Telegram-боте.</p>
+    
+    <!-- ===== МЕНЮ ===== -->
+    <div class="nav-buttons">
+      <a href="#" class="nav-btn donate-btn">❤️ Донат</a>
+      <a href="#lessons" class="nav-btn lessons-btn">📚 Уроки</a>
+      <a href="#about" class="nav-btn about-btn">ℹ️ О нас</a>
+    </div>
+
     <a class="btn-tg" href="https://t.me/P_E_D_bot" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9.04 15.47l-.38 5.36c.54 0 .78-.23 1.06-.5l2.55-2.44 5.29 3.87c.97.53 1.66.25 1.9-.9l3.44-16.1c.3-1.41-.5-1.96-1.44-1.61L.9 9.8c-1.37.53-1.35 1.29-.23 1.63l4.66 1.46L16.15 5.6c.5-.33.96-.15.58.18l-8.7 7.85z"/></svg>
       Открыть бота в Telegram
     </a>
   </header>
 
-  <p class="lessons-title">📚 Уроки</p>
+  <!-- ===== БЛОК О НАС ===== -->
+  <div id="about" class="about-section">
+    Этот проект создан для поддержки фонда <b>«А»</b> (название скоро появится). 
+    Его суть — в простой и понятной форме научить детей и взрослых, далёких от программирования, 
+    базе IT с помощью лёгкого языка <span class="highlight">Python</span>.
+  </div>
+
+  <!-- ===== УРОКИ ===== -->
+  <p class="lessons-title" id="lessons">📚 Уроки</p>
 
   <div class="lessons" id="lessons-container">
     <div class="loading">Загружаю уроки...</div>
@@ -221,6 +318,16 @@
 </div>
 
 <script>
+  // ===== СКРИПТ ЦИТАТ =====
+  const quotes = document.querySelectorAll('.quote');
+  let currentQuote = 0;
+  setInterval(() => {
+    quotes[currentQuote].classList.remove('active');
+    currentQuote = (currentQuote + 1) % quotes.length;
+    quotes[currentQuote].classList.add('active');
+  }, 5000); // Смена каждые 5 секунд
+
+  // ===== СКРИПТ УРОКОВ =====
   function esc(s) {
     return String(s)
       .replace(/&/g, '&amp;')
